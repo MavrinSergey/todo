@@ -1,30 +1,95 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+<section class="section">
+  <header class="header">
+    <h2 class="header__title">My task list</h2>
+  </header>
+  <form action="#"
+        @submit.prevent="addTaskHandler">
+    <label for="task">
+      <input type="text"
+             id="task"
+             placeholder="enter a new task"
+             v-model="newTask"
+             :class="{ error: errorVar } "
+             @input="errorVar=false">
+    </label>
+    <button class="btn"
+            type="submit">add task
+    </button>
+  </form>
   <router-view/>
+</section>
 </template>
+<script>
+import {useTaskStore} from "@/stores/TaskStore";
 
+export default {
+  name: "App",
+  data() {
+    return {
+      newTask: '',
+      errorVar: false,
+    }
+  },
+  methods: {
+    addTaskHandler() {
+      if (this.newTask) {
+        useTaskStore().addTask(this.newTask);
+        this.newTask = '';
+      } else {
+        const inputEl = document.getElementById('task');
+        this.errorVar = true;
+        inputEl.classList.add('error')
+      }
+    },
+  }
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.section {
+  background: #292F36;
+  color: #F4F0EC;
+}
+.header {
+  margin: 0 auto;
+  max-width: 1200px;
+
+}
+.header__title {
+  margin: 0 0 30px 0;
+  padding: 60px 0 0;
   text-align: center;
-  color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
+form {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#task {
+  padding: 13px 27px;
+  border-radius: 18px;
+  font-family: "Roboto Light", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.error {
+  border: 1px solid red;
+}
+@media screen and (max-width: 485px) {
+  .header__title {
+    margin: 0 0 20px 0;
+    padding: 40px 0 0;
+    text-align: center;
+  }
+  form {
+    gap: 15px;
+  }
+  #task {
+    padding: 7px 14px;
+    border-radius: 9px;
+    font-size: 12px;
+  }
 }
 </style>

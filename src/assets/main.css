@@ -1,0 +1,33 @@
+body {
+    margin: 0 auto;
+    background: #1B2534;
+    font-family: "Roboto Light", sans-serif;
+    max-width: 1000px;
+    font-size: 18px;
+}
+.btn {
+    padding: 13px 27px;
+    border-radius: 18px;
+    border: none;
+    font-family: "Roboto Light", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    cursor: pointer;
+    background-color: white;
+    color: #1B2534;
+}
+.btn:hover {
+    background-color: #CDA274;
+    color: white;
+}
+.btn:active {
+
+}
+@media screen and (max-width: 485px) {
+    .btn {
+        padding: 7px 14px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+}
