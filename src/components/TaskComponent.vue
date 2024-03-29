@@ -23,8 +23,10 @@ export default {
     }
   },
   methods: {
-    clickHandler(e){
-      if(e.target.tagName ==='BUTTON'){return}
+    clickHandler(e) {
+      if (e.target.tagName === 'BUTTON') {
+        return
+      }
 
       this.$router.push(`/task/${this.task.id}`)
     },
@@ -43,10 +45,15 @@ export default {
   width: 90%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   column-gap: 20px;
   border: 2px solid aquamarine;
   border-radius: 29px;
 }
+.task__title {
+  max-width: 740px;
+}
+
 @media screen and (max-width: 485px) {
   .task {
     padding: 10px 10px 10px 15px;
@@ -55,6 +62,7 @@ export default {
     border: 2px solid aquamarine;
     border-radius: 20px;
   }
+
   .task__title {
     font-size: 12px;
   }

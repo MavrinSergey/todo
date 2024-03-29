@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TaskDetails from '@/components/TaskDetails.vue'
-import TaskList from '@/components/TaskList.vue'
+import TaskDetails from '@/pages/TaskDetails.vue'
+import TaskList from '@/pages/TaskList.vue'
+import SearchComponent from "@/pages/SearchComponent.vue";
+import TaskAdd from "@/pages/TaskAdd.vue";
 
 const routes = [
   {
@@ -11,6 +13,14 @@ const routes = [
     path: '/task/:id',
     component: TaskDetails,
     props: true,
+  },
+  {
+    path: '/search',
+    component: SearchComponent,
+  },
+  {
+    path: '/added-task',
+    component: TaskAdd,
   },
 ]
 
