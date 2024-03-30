@@ -2,14 +2,9 @@
   <HeaderComponent/>
   <div class="tasks">
     <h3 class="tasks__title">All Task</h3>
-    <div class="filter">
-      <select v-model="selected" class="select" @change="selectHandler">
-        <option disabled value="">Select a sort option</option>
-        <option v-for="option in getOptions" :value="option.value" :key="option.id">
-          {{ option.text }}
-        </option>
-      </select>
-      <span>Выбрано: {{ selected }}</span>
+    <div class="filter-and-search">
+      <FilterComponent/>
+      <SearchComponent/>
     </div>
     <ul class="tasks__content">
       <TaskComponent v-for="task in getTasks"
@@ -24,10 +19,14 @@
 import TaskComponent from "@/components/TaskComponent.vue";
 import {useTaskStore} from "@/stores/TaskStore";
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import SearchComponent from "@/components/SearchComponent.vue";
+import FilterComponent from "@/components/FilterComponent.vue";
 
 export default {
   name: "TaskList",
   components: {
+    FilterComponent,
+    SearchComponent,
     HeaderComponent,
     TaskComponent
   },
@@ -40,46 +39,46 @@ export default {
     getTasks() {
       return useTaskStore().getAllTasks
     },
-    getOptions() {
-      return useTaskStore().getKeys.map(item => ({text: item, value: item}));
-    },
   },
-  methods: {
-    selectHandler() {
-      console.log('selected', this.selected);
-      useTaskStore().sortedTask(this.selected);
-    }
-  }
-  // mounted() {
-  //   console.log('selected', this.selected);
-  //   useTaskStore().clickTagFilter(this.selected);
-  // }
 }
 </script>
 
-
 <style scoped>
 .tasks {
+  margin-bottom: 50px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
 .tasks__title {
   margin: 0;
-  padding: 60px 0 30px;
+  padding: 30px 0 30px;
   text-align: center;
 }
-.filter {
-  padding: 30px;
+.filter-and-search {
+  display: flex;
+  justify-content: space-between;
 }
 
-@media screen and (max-width: 485px) {
+.tasks__content {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+@media screen and (max-width: 550px) {
   .tasks__title {
     padding: 40px 0 20px;
   }
 
   .tasks__content {
     row-gap: 15px;
+  }
+  .filter-and-search {
+    flex-direction: column-reverse;
   }
 }
 </style>

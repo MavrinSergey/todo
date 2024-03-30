@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TaskDetails from '@/pages/TaskDetails.vue'
 import TaskList from '@/pages/TaskList.vue'
-import SearchComponent from "@/pages/SearchComponent.vue";
 import TaskAdd from "@/pages/TaskAdd.vue";
+import PopUp from "@/pages/PopUp.vue";
 
 const routes = [
   {
@@ -15,12 +15,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/search',
-    component: SearchComponent,
-  },
-  {
     path: '/added-task',
     component: TaskAdd,
+  },
+  {
+    path: '/pop-up/:id',
+    component: PopUp,
+    props: true,
   },
 ]
 

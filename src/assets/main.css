@@ -1,11 +1,11 @@
 body {
-    margin: 0 auto;
     background: #1B2534;
     font-family: "Roboto Light", sans-serif;
-    max-width: 1000px;
     font-size: 18px;
+    box-sizing: border-box;
 }
 input, select {
+    width: 80%;
     padding: 13px 27px;
     border-radius: 18px;
     font-family: "Roboto Light", sans-serif;
@@ -32,17 +32,25 @@ input, select {
 .btn:active {
 
 }
-.tasks__content {
-    margin: 0;
-    padding: 0;
+.btn-group {
     display: flex;
-    flex-direction: column;
-    row-gap: 20px;
+    column-gap: 15px;
+}
+form {
+    padding: 30px;
 }
 @media screen and (max-width: 485px) {
-    .btn {
+    .btn, .select, input {
         padding: 7px 14px;
         border-radius: 9px;
         font-size: 12px;
+    }
+    input {
+        padding: 7px 14px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+    form {
+        padding: 15px;
     }
 }

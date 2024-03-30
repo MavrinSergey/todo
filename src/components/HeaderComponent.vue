@@ -8,9 +8,6 @@
       <button @click="this.$router.push(`/added-task`)"
               class="btn btn_search">Add Task
       </button>
-      <button @click="this.$router.push(`/search`)"
-              class="btn btn_search">search
-      </button>
     </div>
   </header>
 </template>
@@ -30,11 +27,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
-.btn-group {
-  margin-right: 30px;
-  display: flex;
-  column-gap: 15px;
 }
 
 @media screen and (max-width: 485px) {

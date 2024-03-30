@@ -6,7 +6,7 @@ export const useTaskStore = defineStore('taskStore', {
             {
                 "userId": 1,
                 "id": 1,
-                "title": "ullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sintullam nobis libero sapiente ad optio sint",
+                "title": "delectus aut autem",
                 "completed": false
             },
             {
@@ -63,87 +63,26 @@ export const useTaskStore = defineStore('taskStore', {
                 "title": "illo est ratione doloremque quia maiores aut",
                 "completed": true
             },
-            {
-                "userId": 1,
-                "id": 11,
-                "title": "vero rerum temporibus dolor",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 12,
-                "title": "ipsa repellendus fugit nisi",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 13,
-                "title": "et doloremque nulla",
-                "completed": false
-            },
-            {
-                "userId": 1,
-                "id": 14,
-                "title": "repellendus sunt dolores architecto voluptatum",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 15,
-                "title": "ab voluptatum amet voluptas",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 16,
-                "title": "accusamus eos facilis sint et aut voluptatem",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 17,
-                "title": "quo laboriosam deleniti aut qui",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 18,
-                "title": "dolorum est consequatur ea mollitia in culpa",
-                "completed": false
-            },
-            {
-                "userId": 1,
-                "id": 19,
-                "title": "molestiae ipsa aut voluptatibus pariatur dolor nihil",
-                "completed": true
-            },
-            {
-                "userId": 1,
-                "id": 20,
-                "title": "estiae ipsa aut voluptatibus pariatu",
-                "completed": true
-            }
         ],
-        countId: 3,
+        countId: 21,
+        tasksFilter: [],
     }),
     getters: {
         getKeys: (state) => {
-            return Object.keys(state.tasks[0])
+            if (state.tasks.length > 0) {
+                return Object.keys(state.tasks[0])
+            }
+            return -1;
         },
         getAllTasks: (state) => {
-            return state.tasks;
+            if (state.tasksFilter.length === 0) {
+                return state.tasks;
+            }
+            return state.tasksFilter
         },
         getTaskById: (state) => {
             return (id) => state.tasks.find((el) => el.id === +id);
         },
-        getTasksSearch: (state) => {
-            return (searchStr) => {
-                const searchArr = searchStr.split(' ');
-                return state.tasks.filter((el) => {
-                    return searchArr.every((searchTerm) => el.title.toLowerCase().includes(searchTerm.toLowerCase()));
-                });
-            }
-        }
     },
     actions: {
         deleteTask(id) {
@@ -157,9 +96,24 @@ export const useTaskStore = defineStore('taskStore', {
             });
         },
         sortedTask(selectOption) {
-            console.log(this.tasks)
-            this.tasks.sort((a, b) => a[`${selectOption}`] - b[`${selectOption}`])
-            console.log(this.tasks)
+            const tasksToSort = this.tasksFilter.length === 0 ? this.tasks : this.tasksFilter;
+            tasksToSort.sort((a, b) => a[selectOption] < b[selectOption] ? -1 : a[selectOption] > b[selectOption] ? 1 : 0);
+        },
+        completeTask(id) {
+            this.getTaskById(id).completed = true;
+        },
+        titleTask(id, title) {
+            this.getTaskById(id).title = title;
+        },
+        setSearchTask(searchStr) {
+            if (searchStr.trim() === "") {
+                this.tasksFilter = [];
+            } else {
+                const searchArr = searchStr.split(' ');
+                this.tasksFilter = this.tasks.filter((el) => {
+                    return searchArr.every((searchTerm) => el.title.toLowerCase().includes(searchTerm.toLowerCase()));
+                });
+            }
         },
     },
 });
